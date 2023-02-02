@@ -10,7 +10,7 @@ type IProps = {
 }
 
 export const getStaticProps = async ({ params }: any) => {
-  const response = await api.get(`/api/rooms/${params.id}/?populate=*`);
+  const response = await api.get(`/api/rooms/${params.id}`);
   
   const data = response.data;
 
@@ -31,9 +31,8 @@ export const getStaticProps = async ({ params }: any) => {
 export const getStaticPaths = async () => {
   const response = await api.get('/api/rooms');
   const { data } = response;
-
   const paths = data.data.map((post: any) => ({
-    params: { id: post.id.toString() },
+    params: { id: post.attributes.slug.toString() },
   }));
   return { paths, fallback: false };
 };
@@ -52,10 +51,10 @@ const Room = ({props}: RoomProps) => {
       <div className="px-6 pt-4 pb-6 flex flex-col grow">
         <div className="inline-flex justify-between items-center">
           <h1 className="text-3xl text-primary">{props.name}</h1>
-          <Image width={40} height={40} className="h-full" src="/kainrooms/rooms/assets/informatik.svg" alt="logo" />
+          <Image width={40} height={40} className="h-full" src={`/kainrooms/rooms/assets/${props.department}.svg`} alt="logo" />
         </div>
         <div className="pb-8 pt-4 text-base grow">{props.text}</div>
-        <div className="flex flex-col text-xs">
+        <div className="flex flex-col text-sm">
           <span>Du hast weitere Fragen?</span>
           <span className="text-primary">Melde dich bei unserem Lehrerteam!</span>
         </div>
