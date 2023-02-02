@@ -1,6 +1,6 @@
 import api from 'api';
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 type IProps = {
   name: string,
@@ -16,7 +16,7 @@ export const getStaticProps = async ({ params }: any) => {
 
   const props: IProps = {
     name: data.data.attributes.name,
-    image: `${process.env.CMS_SERVER}${data.data.attributes.image.data.attributes.formats.small.url}`,
+    image: `${process.env.CMS_SERVER}${data.data.attributes.image.data.attributes.url}`,
     department: data.data.attributes.department,
     text: data.data.attributes.text,
   };
@@ -42,6 +42,9 @@ type RoomProps = {
 }
 
 const Room = ({props}: RoomProps) => {
+  useEffect(() => {
+    document.title = props.name;
+  }, [])
   return (
     <>
       <div className="px-4 py-4">
