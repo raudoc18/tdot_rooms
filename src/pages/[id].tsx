@@ -1,6 +1,7 @@
 import api from 'api';
 import Image from 'next/image'
 import React, { useEffect } from 'react'
+import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 
 type IProps = {
   name: string,
@@ -54,9 +55,11 @@ const Room = ({props}: RoomProps) => {
       <div className="px-6 pt-4 pb-6 flex flex-col grow">
         <div className="inline-flex justify-between items-center">
           <h1 className="text-3xl text-primary">{props.name}</h1>
-          <Image width={40} height={40} className="h-full" src={`/kainrooms/rooms/assets/${props.department}.svg`} alt="logo" />
+          {props.department !== 'alle' ? <Image width={40} height={40} className="h-full" src={`/kainrooms/rooms/assets/${props.department}.svg`} alt="logo" /> : null}
         </div>
-        <div className="pb-8 pt-4 text-base grow">{props.text}</div>
+        <div className="pb-8 pt-4 text-base grow">
+          <ReactMarkdown>{props.text}</ReactMarkdown>
+        </div>
         <div className="flex flex-col text-sm">
           <span>Du hast weitere Fragen?</span>
           <span className="text-primary">Melde dich bei unserem Lehrerteam!</span>

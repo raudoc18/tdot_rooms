@@ -3,7 +3,7 @@ const nextConfig = {
   basePath: '/kainrooms/rooms',
   reactStrictMode: true,
   images: {
-    domains: ['localhost']
+    domains: ['admin.dominik-raunnigger.dev']
   }
 }
 
